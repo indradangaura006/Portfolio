@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+/* Blog Section Unique Styles */
+.featured-blog-post {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    background: rgb(49, 122, 122);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-image-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.featured-blog-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.featured-image-container:hover .featured-blog-image {
+    transform: scale(1.05);
+}
+
+.featured-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #74a9e7;
+}
+
+.blog-date, .blog-category, .blog-comments {
+    display: flex;
+    align-items: center;
+}
+
+.blog-date::before {
+    content: "📅";
+    margin-right: 0.5rem;
+}
+
+.blog-category::before {
+    content: "🏷️";
+    margin-right: 0.5rem;
+}
+
+.blog-comments::before {
+    content: "💬";
+    margin-right: 0.5rem;
+}
+
+.featured-title {
+    font-size: 2.2rem;
+    color: #a6daff;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.featured-excerpt {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #d5e8ff;
+    margin-bottom: 2rem;
+}
+
+.blog-tags {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.blog-tag {
+    background: rgba(0, 178, 255, 0.15);
+    color: #a6daff;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 178, 255, 0.3);
+}
+
+.read-full-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.read-full-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Blog Grid */
+.blog-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.blog-post-card {
+    background: rgba(28, 34, 54, 0.55);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 178, 255, 0.4);
+}
+
+.blog-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-post-card:hover .blog-card-image img {
+    transform: scale(1.1);
+}
+
+.read-time {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.blog-card-content {
+    padding: 1.5rem;
+}
+
+.blog-card-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: #74a9e7;
+}
+
+.blog-card-title {
+    font-size: 1.3rem;
+    color: #a6daff;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.blog-card-excerpt {
+    color: #d5e8ff;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-card-category {
+    background: rgba(0, 178, 255, 0.1);
+    color: #74a9e7;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 178, 255, 0.2);
+}
+
+.blog-read-more {
+    background: transparent;
+    color: #a6daff;
+    border: 1px solid rgba(0, 178, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.blog-read-more:hover {
+    background: rgba(0, 178, 255, 0.1);
+    transform: translateX(5px);
+}
+
+/* Categories Section */
+.blog-categories-section {
+    margin-bottom: 4rem;
+}
+
+.categories-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #a6daff;
+    margin-bottom: 2rem;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: rgba(28, 34, 54, 0.55);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 178, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+}
+
+.category-card h4 {
+    color: #a6daff;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.category-card p {
+    color: #74a9e7;
+    font-size: 0.9rem;
+}
+
+/* Newsletter */
+.blog-newsletter {
+    background: linear-gradient(135deg, rgba(28, 34, 54, 0.8) 0%, rgba(20, 24, 39, 0.9) 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.newsletter-content h3 {
+    color: #a6daff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter-content p {
+    color: #d5e8ff;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid rgba(0, 178, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+}
+
+.newsletter-input::placeholder {
+    color: #74a9e7;
+}
+
+.newsletter-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.newsletter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .featured-blog-post {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .featured-title {
+        font-size: 1.8rem;
+    }
+    
+    .blog-grid-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .blog-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+
+
+.footer{
+    margin-top: -170px;
+}
+</style>
+</head>
+<body>
+        <div class="nav-container">
+            <div class="nav">
+           <div class="nav-heading">
+            <span class="logo"> <i class="fa-solid fa-i"></i></span>
+             <h1>Indra</h1>
+            </div>
+            <div class="nav-contant">
+                <ul class="items">
+                    <li class="home"><a href="/">Home</a> </li>
+                    <li><a href="#about">About</a> </li>
+                    <li><a href="#process">Process</a> </li>
+                    <li><a href="#portfolio">Portfolio</a> </li>
+                    <li><a href="#blog">Blog</a> </li>
+                </ul>
+                <a href="#service"><button class="btn">Services</button></a>
+               <a href="#contact"> <button class="btn2">Contact</button></a>
+            </div>
+
+        </div>
+        </div>
+    <section id="blog">
+
+    <div class="sixth-main">
+        <div class="blog">
+            <h1>Blog</h1>
+            <p>Check out my recent blog posts where I share insights on <br> design, development, and the latest industry trends.</p>
+            
+            <!-- Featured Blog Post -->
+            <div class="featured-blog-post">
+                <div class="featured-image-container">
+                    <img src="/img/b3.jpg" alt="Featured Blog Post" class="featured-blog-image">
+                    <div class="featured-badge">Featured</div>
+                </div>
+                <div class="featured-content">
+                    <div class="blog-meta">
+                        <span class="blog-date">October 22, 2024</span>
+                        <span class="blog-category">UI/UX Design</span>
+                        <span class="blog-comments">246 comments</span>
+                    </div>
+                    <h2 class="featured-title">Designing Engaging User Interfaces for Modern Applications</h2>
+                    <p class="featured-excerpt">Discover the principles and techniques behind creating user interfaces that not only look beautiful but also provide exceptional user experiences. Learn how to balance aesthetics with functionality in today's digital landscape.</p>
+                    <div class="blog-tags">
+                        <span class="blog-tag">UI Design</span>
+                        <span class="blog-tag">User Experience</span>
+                        <span class="blog-tag">Web Development</span>
+                    </div>
+                    <button class="read-full-btn">Read Full Article <i class="fa-solid fa-arrow-right-long"></i></button>
+                </div>
+            </div>
+
+            <!-- Blog Posts Grid -->
+            <div class="blog-grid-container">
+                <div class="blog-post-card">
+                    <div class="blog-card-image">
+                        <img src="/img/b3.jpg" alt="Web Development Trends">
+                        <div class="read-time">5 min read</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-date">Nov 15, 2024</span>
+                            <span class="blog-card-comments">89 comments</span>
+                        </div>
+                        <h3 class="blog-card-title">Latest Web Development Trends in 2024</h3>
+                        <p class="blog-card-excerpt">Exploring the cutting-edge technologies and frameworks that are shaping the future of web development.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-card-category">Development</span>
+                            <button class="blog-read-more">Read More <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-post-card">
+                    <div class="blog-card-image">
+                        <img src="/img/b3.jpg" alt="Mobile Design">
+                        <div class="read-time">4 min read</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-date">Nov 10, 2024</span>
+                            <span class="blog-card-comments">134 comments</span>
+                        </div>
+                        <h3 class="blog-card-title">Mobile-First Design Principles</h3>
+                        <p class="blog-card-excerpt">Why mobile-first approach is crucial and how to implement it effectively in your projects.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-card-category">Mobile Design</span>
+                            <button class="blog-read-more">Read More <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-post-card">
+                    <div class="blog-card-image">
+                        <img src="/img/b3.jpg" alt="Color Theory">
+                        <div class="read-time">6 min read</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-date">Nov 5, 2024</span>
+                            <span class="blog-card-comments">76 comments</span>
+                        </div>
+                        <h3 class="blog-card-title">Color Psychology in Digital Design</h3>
+                        <p class="blog-card-excerpt">Understanding how colors influence user behavior and emotions in digital interfaces.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-card-category">Design Theory</span>
+                            <button class="blog-read-more">Read More <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-post-card">
+                    <div class="blog-card-image">
+                        <img src="/img/b3.jpg" alt="Performance Optimization">
+                        <div class="read-time">7 min read</div>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span class="blog-card-date">Oct 28, 2024</span>
+                            <span class="blog-card-comments">112 comments</span>
+                        </div>
+                        <h3 class="blog-card-title">Performance Optimization Techniques</h3>
+                        <p class="blog-card-excerpt">Advanced strategies to improve website loading speed and overall performance.</p>
+                        <div class="blog-card-footer">
+                            <span class="blog-card-category">Performance</span>
+                            <button class="blog-read-more">Read More <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Categories -->
+            <div class="blog-categories-section">
+                <h3 class="categories-title">Browse by Category</h3>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <h4>UI/UX Design</h4>
+                        <p>12 Articles</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h4>Development</h4>
+                        <p>18 Articles</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h4>Mobile Design</h4>
+                        <p>8 Articles</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4>Strategy</h4>
+                        <p>6 Articles</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Subscription -->
+            <div class="blog-newsletter">
+                <div class="newsletter-content">
+                    <h3>Stay Updated</h3>
+                    <p>Get the latest articles and insights on design and development delivered to your inbox.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email address" class="newsletter-input">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+   <div class="footer">
+           <div class="footer-contant">
+              <div class="nav-heading">
+            <span class="logo1"> <i class="fa-solid fa-i"></i></span>
+             <h1 class="footer-heading">Indra</h1>
+            </div>
+              <div class="secondnav-contant">
+                <ul class="copy-items">
+                    <li class="home1"><a href="#">Home</a> </li>
+                    <li class="about2"><a href="#">About</a> </li>
+                    <li class="process2"><a href="#">Process</a> </li>
+                    <li class="portfolio2"><a href="#">Portfolio</a> </li>
+                    <li class="blog2"><a href="#">Blog</a> </li>
+                </ul>
+                </div>
+                <div class="copyright">
+                    <p class="copyright-para">Copyright<i class="fa-regular fa-copyright"></i> 2025 Indra. </p>
+                </div>
+           </div>
+           <div class="developed">
+               <p>Developed by <mark>IndraChaudhary</mark></p>
+           </div>
+
+    </div>
+
+
+
+</body>
+</html>
