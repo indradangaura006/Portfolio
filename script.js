@@ -297,19 +297,19 @@ const testimonials = [
         quote: "Indra delivered a clean, fast, and beautifully designed website. His HTML, CSS, JS, and Laravel skills truly exceeded my expectations.",
         name: "Prerana Chaudhary",
         designation: "Client",
-        src: "/img/perana.jpeg",
+        src: "img/perana.jpeg",
     },
     {
         quote: "Amazing work! The UI is smooth, responsive, and exactly what I envisioned. Indra communicates clearly and delivers on time.",
         name: "Bikash Tharu",
         designation: "Project Partner",
-        src: "/img/bikash.jpg",
+        src: "img/bikash.jpg",
     },
     {
         quote: "A great experience working with Indra! His attention to detail and problem-solving made the whole project smooth and enjoyable.",
         name: "Rupa Lama",
         designation: "Business Owner",
-        src: "/img/rupa.jpg",
+        src: "img/rupa.jpg",
     },
 ];
 
